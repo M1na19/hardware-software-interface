@@ -9,6 +9,8 @@
 int main(void)
 {
 	/* TODO: Test function */
-
+	char m[]="hello";
+	mirror(m);
+	printf("%s",m);
 	return 0;
 }
