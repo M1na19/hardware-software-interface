@@ -7,7 +7,7 @@
 
 int main(void)
 {
-	/* TODO: Test functions */
-
+	int x[5]= {1, 2, 3, 4, 5};
+	check_parity(x, 5);
 	return 0;
 }

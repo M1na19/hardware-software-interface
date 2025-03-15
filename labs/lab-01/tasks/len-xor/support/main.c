@@ -9,6 +9,6 @@
 int main(void)
 {
 	/* TODO: Test functions */
-
+	my_strlen("ababababacccbacbacbacbacbabc");	
 	return 0;
 }

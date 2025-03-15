@@ -8,12 +8,23 @@
 
 char *delete_first(char *s, char *pattern)
 {
-	/**
-	 * TODO: Implement this function
-	 */
-
-	(void) s;
-	(void) pattern;
-
-	return NULL;
+	char * res=malloc(strlen(s)* sizeof(char));
+	int i,k=0;
+	for(i = 0;i<strlen(s)-strlen(pattern);i++){
+		int isPattern=1;
+		for(int j = 0;j<strlen(pattern) && isPattern;j++){
+			if(s[i+j]!=pattern[j]){
+				res[k++]=s[i];
+				isPattern=0;
+			}			
+		}
+		if(isPattern){
+			i+=strlen(pattern);
+			break;
+		}
+	}
+	for(int j = i;j<strlen(s);j++){
+		res[k++]=s[j];
+	}
+	return res;
 }
