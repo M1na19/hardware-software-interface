@@ -3,16 +3,32 @@
 %include "printf32.asm"
 
 section .data
-    N: dd 7          ; N-th fibonacci number to calculate
+    N: dd 5          ; N-th fibonacci number to calculate
 
 section .text
     global main
     extern printf
 
 main:
-    mov ecx, DWORD [N]       ; we want to find the N-th fibonacci number; N = ECX = 7
-    PRINTF32 `%d\n\x0`, ecx  ; DO NOT REMOVE/MODIFY THIS LINE
+    mov eax, DWORD [N]       ; we want to find the N-th fibonacci number; N = ECX = 7
+    cmp eax , 2
+    jle base
+    sub eax,2
 
-    ; TODO: calculate the N-th fibonacci number (f(0) = 0, f(1) = 1)
+    mov ebx,1
+    mov ecx,1
+    start_loop:
+        add ebx,ecx
+        xor ecx, ebx
+        xor ebx, ecx
+        xor ecx, ebx
 
+        dec eax
+        test eax,eax
+        jne start_loop
+    print:
+        PRINTF32 `%d\n\x0`, ecx  ; DO NOT REMOVE/MODIFY THIS LINE
     ret
+base:
+    mov ecx,1
+    jmp print

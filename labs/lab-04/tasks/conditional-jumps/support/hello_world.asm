@@ -4,6 +4,7 @@
 
 section .data
     myString: db "Hello, World!", 0
+    goodbyeString: db "Goodbye, World!", 0
     N: dd 6                         ; N = 6
 
 section .text
@@ -17,12 +18,16 @@ main:
     mov eax, 2
     mov ebx, 1
     cmp eax, ebx
-    je print                        ; TODO1: eax > ebx?
+    jg print                        
     ret
 
 print:
-    PRINTF32 `%s\n\x0`, myString
+    start_loop:
+        PRINTF32 `%s\n\x0`, myString
+        dec ecx
+        test ecx,ecx
+        jnz start_loop 
                                     ; TODO2.2: print "Hello, World!" N times
-                                    ; TODO2.1: print "Goodbye, World!"
-
+    
+    PRINTF32 `%s\n\x0`, goodbyeString
     ret

@@ -19,7 +19,12 @@ main:
     PRINTF32 `%d\n\x0`, ebx ; print the second number
                             ; DO NOT REMOVE/MODIFY THIS LINE
 
-    ; TODO: find the minimum of the two numbers and store it in eax
-    PRINTF32 `%d\n\x0`, eax ; print the minimum
+    cmp eax,ebx
+    jg move_min
+    print:
+        PRINTF32 `%d\n\x0`, eax ; print the minimum
 
     ret
+move_min:
+    xchg eax,ebx
+    jmp print
