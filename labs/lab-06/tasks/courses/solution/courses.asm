@@ -11,7 +11,7 @@ section .bss
         id_course:  resd    1       ; integer - the id of the course where a student is assigned
         check:      resd    1       ; "bool" - check if the student is assigned to any course
     endstruc
-
+    
     ; the structure for a course
     struc course_t
         id:             resd    1       ; id = index in courses (the list of courses)
