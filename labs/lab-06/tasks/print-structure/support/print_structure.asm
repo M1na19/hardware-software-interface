@@ -22,6 +22,7 @@ sample_student:
         at birth_year, dw 1994
     iend
 
+new_group db "323CA", 0
 format_name db "Name: %s", 10, 0
 format_surname db "Surname: %s", 10, 0
 format_age db "Age: %d", 10, 0
@@ -35,11 +36,23 @@ global main
 main:
     push ebp
     mov ebp, esp
-
     ; TODO: Update name, surname, birth_year, gender and age such that:
+
     ; birth_year is 1993
+    lea ebx,[sample_student + birth_year]
+    mov word[ebx], 1993
+
     ; age is 22
+    lea ebx,[sample_student + age]
+    mov byte[ebx], 22
+
+
     ; group is '323CA'
+    lea edi, [sample_student + group]
+    lea esi, [new_group]
+    mov ecx, 6
+    rep movsb
+
 
     lea eax, [sample_student + name]
     push eax
