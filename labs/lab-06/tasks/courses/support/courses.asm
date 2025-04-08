@@ -77,6 +77,18 @@ main:
 	push ebp
 	mov ebp, esp
 	PRINTF32 `The students list is:\n\x0`
-	; TODO: Print the list of students and the courses where they are assigned
+	mov ecx, [v_students_count]
+	loop_start:
+		mov edx, [v_students_count]
+		sub edx,ecx
+		imul edx,student_t_size
+		lea eax, [students + edx + name]
+		lea ebx, [students + edx + id_course]
+
+		mov ebx,[ebx]
+		imul ebx, course_t_size
+		lea ebx, [courses + ebx + name_course]
+		PRINTF32 `%s ---- %s\n\x0`, eax, ebx
+		loop loop_start 
     leave
     ret
