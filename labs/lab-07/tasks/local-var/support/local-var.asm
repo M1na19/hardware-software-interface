@@ -16,58 +16,87 @@ section .text
 extern printf
 global main
 main:
-    mov eax, 0 ; counter used for array_1
-    mov ebx, 0 ; counter used for array_2
-    mov ecx, 0 ; counter used for the output array
+    mov ebp, esp
 
+    mov ecx, ARRAY_1_LEN
+    shl ecx, 2
+
+    ; alloc array 1
+    sub esp, ecx
+    mov eax, esp
+loop_copy_1:
+    sub ecx, 4
+    mov edx, [array_1+ ecx]
+    mov dword[eax + ecx], edx
+    test ecx,ecx
+    jnz loop_copy_1
+
+
+    mov ecx, ARRAY_2_LEN
+    shl ecx, 2
+    sub esp, ecx
+    mov ebx, esp
+loop_copy_2:
+    sub ecx, 4
+    mov edx, [array_2 + ecx]
+    mov dword[ebx + ecx], edx
+    test ecx,ecx
+    jnz loop_copy_2    
+
+
+
+    mov ecx, ARRAY_1_LEN
+    shl ecx, 2
+    sub ecx, 4
+    add ecx, eax
+    
+    mov edx, ARRAY_2_LEN
+    shl edx, 2
+    sub edx, 4
+    add edx, ebx
 merge_arrays:
-    mov edx, [array_1 + 4 * eax]
-    cmp edx, [array_2 + 4 * ebx]
+    mov esi, [ecx]
+    mov edi, [edx]
+    cmp esi, edi
     jg array_2_lower
+
 array_1_lower:
-    mov [array_output + 4 * ecx], edx
-    inc eax
-    inc ecx
+    push edi
+    sub edx, 4
     jmp verify_array_end
 array_2_lower:
-    mov edx, [array_2 + 4 * ebx]
-    mov [array_output + 4 * ecx], edx
-    inc ecx
-    inc ebx
+    push esi
+    sub ecx, 4
 
 verify_array_end:
-    cmp eax, ARRAY_1_LEN
-    jge copy_array_2
-    cmp ebx, ARRAY_2_LEN
-    jge copy_array_1
-    jmp merge_arrays
+   cmp ecx, eax
+   jl copy_array_2
+   
+   cmp edx, ebx
+   jge merge_arrays
+
 
 copy_array_1:
-    mov edx, [array_1 + 4 * eax]
-    mov [array_output + 4 * ecx], edx
-    inc ecx
-    inc eax
-    cmp eax, ARRAY_1_LEN
-    jb copy_array_1
-    jmp print_array
+   push dword[ecx]
+   sub ecx, 4
+   cmp ecx, eax
+   jge copy_array_1
 copy_array_2:
-    mov edx, [array_2 + 4 * ebx]
-    mov [array_output + 4 * ecx], edx
-    inc ecx
-    inc ebx
-    cmp ebx, ARRAY_2_LEN
-    jb copy_array_2
-
+    push dword[edx]
+    sub edx, 4
+    cmp edx, ebx
+    jge copy_array_2
+    
 print_array:
     PRINTF32 `Array merged:\n\x0`
-    mov ecx, 0
 print:
-    mov eax, [array_output + 4 * ecx]
-    PRINTF32 `%d \x0`, eax
-    inc ecx
-    cmp ecx, ARRAY_OUTPUT_LEN
-    jb print
-
+    mov ecx, ARRAY_OUTPUT_LEN
+    print_loop:
+        pop eax
+        PRINTF32 `%d \x0`, eax
+        loop print_loop
+    
     PRINTF32 `\n\x0`
+    mov esp, ebp
     xor eax, eax
     ret
