@@ -14,7 +14,23 @@ global main
 main:
 
     ; TODO push the elements of the array on the stack
+
+    mov ecx, ARRAY_LEN
+    shl ecx, 2
+    loop_copy:
+        sub ecx, 4
+        push dword[input + ecx]
+        test ecx, ecx
+        jnz loop_copy
+        
     ; TODO retrieve the elements (pop) from the stack into the output array
+    mov ecx, ARRAY_LEN
+    shl ecx,2
+    loop_retrieve:
+        sub ecx, 4
+        pop dword[output + ecx]
+        test ecx, ecx
+        jnz loop_retrieve
 
     PRINTF32 `Reversed array: \n\x0`
     xor ecx, ecx

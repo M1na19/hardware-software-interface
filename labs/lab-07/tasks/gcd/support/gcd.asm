@@ -11,11 +11,10 @@ main:
 
     push eax
     push edx
-
 gcd:
     neg eax
     je gcd_end
-
+    
 swap_values:
     neg eax
     push eax
@@ -39,6 +38,8 @@ print:
 
     ; TODO 2: print the result in the form of: "gdc(eax, edx)=7" with PRINTF32 macro
     ; output value in eax
-
+    pop ebx
+    pop ecx
+    PRINTF32 `gcd(%d, %d) = %d\n\x0`,ecx,ebx, eax
     xor eax, eax
     ret
