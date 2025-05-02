@@ -18,7 +18,6 @@ main:
     push mystring
     call rot13
     add esp, 8
-
     push mystring
     push after_fmt
     call printf
