@@ -11,7 +11,10 @@ print_string_length:
     mov ebp, esp
     push ebx                ; preserve ebx as required by cdecl
 
-    ; TODO: print the string length
+    push dword[ebp+8]    
+    push print_format
+    call printf
+    add esp, 8
 
     pop ebx
     leave
