@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "ops.h"
 
+int hidden_value;
+int age;
 int main(void)
 {
 	set(10);

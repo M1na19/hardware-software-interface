@@ -12,6 +12,7 @@ global print_hello
 ;   TODO: Add the missing instruction
 print_hello:
 	push ebp
+	mov ebp, esp
 
 	push message
 	call printf
