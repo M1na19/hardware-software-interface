@@ -6,8 +6,8 @@ void init(void)
 {
 	hidden_value = 0;
 }
-
-static void set(int value)
+// remove static
+void set(int value)
 {
 	hidden_value = value;
 }

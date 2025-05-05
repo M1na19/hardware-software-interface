@@ -5,8 +5,8 @@ BITS 64
 section .data
     arr: dd 19, 7, 129, 87, 54, 218, 67, 12, 19, 99
     len: equ $-arr
-
-    print_format: db "max: %u", 10, 0
+    pos: dq 0
+    print_format: db "max: %u on position: %u", 10, 0
 
 section .text
 
@@ -26,11 +26,13 @@ main:
 
     mov rdi, arr
     mov rsi, rax
+    mov rdx, pos
     call get_max
 
     ; Print max.
     mov rdi, print_format
     mov rsi, rax
+    mov rdx, qword[pos]
     call printf
 
     leave

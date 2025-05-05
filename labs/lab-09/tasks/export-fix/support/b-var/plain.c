@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-static int age;
+int age; // remove static
 
 void print_age(void)
 {
