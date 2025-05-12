@@ -8,6 +8,7 @@
 
 void magic_function(void)
 {
+	printf("asdls\n");
 	system("cowsay -f tux 'Good job there, my friend'");
 }
 
@@ -17,7 +18,7 @@ char read_buffer(void)
 	unsigned int disorienting_var = 0xDEADBEEF;
 	char buffer[64] = "\0";
 	size_t i, len;
-
+	printf("%p %p %p %p %p", &n,&disorienting_var, buffer, &i, &len);
 	printf("insert buffer length: ");
 	scanf("%d", &n);
 	getc(stdin);

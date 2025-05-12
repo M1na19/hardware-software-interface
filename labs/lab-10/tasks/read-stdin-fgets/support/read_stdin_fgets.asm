@@ -5,11 +5,12 @@
 ; Buffer is stored on the stack.
 
 ; TODO 1: Add missing external declaration for stdin
+extern stdin
 ; TODO 1: Change gets to fgets function.
 extern printf
 extern puts
 extern strlen
-extern gets
+extern fgets
 
 
 section .data
