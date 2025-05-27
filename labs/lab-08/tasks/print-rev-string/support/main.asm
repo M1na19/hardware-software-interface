@@ -1,6 +1,6 @@
 section .data
     mystring db "This is my string", 0
-    fmt_str db "[before]: %s\n[after]: ", 0
+    fmt_str db "[before]: %s",10,"[after]: ", 0; Aici nu imi arata bine
 
 section .text
 
@@ -23,12 +23,13 @@ test_one_byte:
     jmp test_one_byte
 
 out:
+    mov ebx, ecx; Am adaugat linia asta pentru ca printf imi sterge informatia din ecx
     push mystring
     push fmt_str
     call printf
     add esp, 8
 
-    push ecx
+    push ebx
     push mystring
     call print_reverse_string
     add esp, 8
